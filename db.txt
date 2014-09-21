@@ -1,0 +1,125 @@
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Remove `managed = False` lines if you wish to allow Django to create and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
+#
+# Also note: You'll have to insert the output of 'django-admin.py sqlcustom [appname]'
+# into your database.
+from __future__ import unicode_literals
+
+from django.db import models
+
+class (Bonappetitemployee)(models.Model):
+    bonappetitemployeeid = models.IntegerField(db_column='BonAppetitEmployeeID', primary_key=True) # Field name made lowercase.
+    namefirst = models.CharField(db_column='NameFirst', max_length=-1, blank=True) # Field name made lowercase.
+    namelast = models.CharField(db_column='NameLast', max_length=-1, blank=True) # Field name made lowercase.
+    permissionsid = models.ForeignKey('Permissions', db_column='PermissionsID', blank=True, null=True) # Field name made lowercase.
+    class Meta:
+        managed = False
+        db_table = 'BonAppetitEmployee'
+    def __unicode__(self):
+        return u'%s %s' % (self.namefirst, self.namelast)  
+
+class (Classschedule)(models.Model):
+    classscheduleid = models.IntegerField(db_column='ClassScheduleID', primary_key=True) # Field name made lowercase.
+    entryid = models.ForeignKey('Entry', db_column='EntryID', blank=True, null=True) # Field name made lowercase.
+    filepath = models.CharField(db_column='filePath', max_length=-1, blank=True) # Field name made lowercase.
+    validfrom = models.DateField(db_column='ValidFrom', blank=True, null=True) # Field name made lowercase.
+    validto = models.DateField(db_column='ValidTo', blank=True, null=True) # Field name made lowercase.
+    approved = models.BooleanField(db_column='Approved') # Field name made lowercase.
+    bonappetitemployeeid = models.ForeignKey(Bonappetitemployee, db_column='BonAppetitEmployeeID') # Field name made lowercase.
+    class Meta:
+        managed = False
+        db_table = 'ClassSchedule'
+
+    def __unicode__(self):
+        return self.classscheduleid    
+
+class (Entry)(models.Model):
+	
+    entryid = models.IntegerField(db_column='EntryID', primary_key=True) # Field name made lowercase.
+    namefirst = models.CharField(db_column='NameFirst', max_length=-1, blank=True) # Field name made lowercase.
+    namelast = models.CharField(db_column='NameLast', max_length=-1, blank=True) # Field name made lowercase.
+    class Meta:
+        managed = False
+        db_table = 'Entry'
+
+    def __unicode__(self):
+        return u'%s %s' % (self.namefirst, self.namelast)    
+
+class (Items)(models.Model):
+	itemid = models.IntegerField(db_column='ItemID', primary_key=True) # Field name made lowercase.
+    itemtypeid = models.IntegerField(db_column='ItemTypeID', blank=True, null=True) # Field name made lowercase.
+    description = models.CharField(db_column='Description', max_length=-1) # Field name made lowercase.
+    maxquantity = models.IntegerField(db_column='MaxQuantity', blank=True, null=True) # Field name made lowercase.
+    class Meta:
+        managed = False
+        db_table = 'Items'
+
+    def __unicode__(self):
+        return self.description
+
+class (Order)(models.Model):
+	orderid = models.IntegerField(db_column='OrderID', primary_key=True) # Field name made lowercase.
+    entryid = models.ForeignKey(Entry, db_column='EntryID', blank=True, null=True) # Field name made lowercase.
+    namefirst = models.CharField(db_column='NameFirst', max_length=-1, blank=True) # Field name made lowercase.
+    namelast = models.CharField(db_column='NameLast', max_length=-1, blank=True) # Field name made lowercase.
+    authenticated = models.BooleanField(db_column='Authenticated') # Field name made lowercase.
+    processed = models.BooleanField(db_column='Processed') # Field name made lowercase.
+    processedbyid = models.ForeignKey(Bonappetitemployee, db_column='ProcessedByID', blank=True, null=True) # Field name made lowercase.
+    processedon = models.DateField(db_column='ProcessedOn', blank=True, null=True) # Field name made lowercase.
+    duedate = models.DateField(db_column='DueDate', blank=True, null=True) # Field name made lowercase.
+    modified = models.DateTimeField(db_column='Modified') # Field name made lowercase.
+    created = models.DateField(db_column='Created', blank=True, null=True) # Field name made lowercase.
+    class Meta:
+        managed = False
+        db_table = 'Order'
+
+    def __unicode__(self):
+        return self.orderid
+
+class (Orderfailureenum)(models.Model):	
+    orderfailureenumid = models.IntegerField(db_column='OrderFailureEnumID', primary_key=True) # Field name made lowercase.
+    description = models.CharField(db_column='Description', max_length=-1, blank=True) # Field name made lowercase.
+    class Meta:
+        managed = False
+        db_table = 'OrderFailureEnum'
+    def __unicode__(self):
+        return self.description
+
+
+class (Orderfailures)(models.Model):
+    orderfailureid = models.IntegerField(db_column='OrderFailureID', primary_key=True) # Field name made lowercase.
+    orderid = models.ForeignKey(Order, db_column='OrderID', blank=True, null=True) # Field name made lowercase.
+    failuredate = models.DateField(db_column='FailureDate') # Field name made lowercase.
+    orderfailureenumid = models.ForeignKey(Orderfailureenum, db_column='OrderFailureEnumID') # Field name made lowercase.
+    class Meta:
+        managed = False
+        db_table = 'OrderFailures'
+
+    def __unicode__(self):
+        return self.orderfailureid
+
+class (Orderitems)(models.Model):
+    orderitemsid = models.IntegerField(db_column='OrderItemsID', primary_key=True) # Field name made lowercase.
+    orderid = models.ForeignKey(Order, db_column='OrderID') # Field name made lowercase.
+    itemid = models.ForeignKey(Items, db_column='ItemID') # Field name made lowercase.
+    itemquantity = models.IntegerField(db_column='ItemQuantity') # Field name made lowercase.
+    orderfilled = models.BooleanField(db_column='OrderFilled') # Field name made lowercase.
+    class Meta:
+        managed = False
+        db_table = 'OrderItems'
+    def __unicode__(self):
+        return self.orderitemsid
+
+class (Permissions)(models.Model):
+    permissionsid = models.IntegerField(db_column='PermissionsID', primary_key=True) # Field name made lowercase.
+    description = models.CharField(db_column='Description', max_length=-1, blank=True) # Field name made lowercase.
+    class Meta:
+        managed = False
+        db_table = 'Permissions'
+
+    def __unicode__(self):
+        return self.description
