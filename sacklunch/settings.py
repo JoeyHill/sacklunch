@@ -88,7 +88,6 @@ STATIC_ROOT= os.path.join(BASE_DIR,'sacklunch/staticfiles/')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'sacklunch/static/'),
 )
-
 try:
     from local import *
 except ImportError as e:
