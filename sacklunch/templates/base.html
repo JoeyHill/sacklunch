@@ -5,6 +5,30 @@
 <html lang="en">
 <head>
 	<title>{% block title %} Sacklunch {% endblock %}</title>
+	<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/>
+
+	<!-- Meta Tags -->
+	<!-- Always force latest IE rendering engine or request Chrome Frame -->
+	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Allow Trop residents to make a sacklunch order." />
+	<meta name="Robots" content="INDEX,FOLLOW">
+	<meta charset="utf-8">
+
+	<!-- Core CSS files -->
+	<link rel="stylesheet" type="text/css" href="{% static 'stylesheets/core.css' %}" />
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+	<!-- Include page specific css -->
+	{% for file in css %}
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}stylesheets/{{ file }}.css" />
+	{% endfor %}
+
+	<!-- jQuery obvs -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+
+	{% for file in js %}
+	<script src="{{ STATIC_PREFIX }}js/{{ file }}.js"></script>
+	{% endfor %}
 </head>
 <body>
 	<header>
@@ -14,6 +38,6 @@
 	<div id="content">{% block content %}{% endblock %}</div>
 
 	<footer>
-	This is our footer and it is {% now D %}
+		This is our footer and it is {% now D %}
 	</footer>
 </body>
