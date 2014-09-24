@@ -25,10 +25,7 @@ header {
 
 #header-logo {
 	width: 50px;
-}
-
-#header-contents {
-	margin: 0 0 0 200px;
+	padding-top: 6px;
 }
 
 #header-title {
@@ -39,16 +36,6 @@ header {
 #header-left {
 	position: absolute;
 	left: 20px;
-	padding: 5px;
-}
-
-#header-link-wrapper {
-	* {
-		display: table-cell;
-		vertical-align: middle;
-	}
-	padding: 5px;
-	display: table;
 }
 
 .header-inline {
