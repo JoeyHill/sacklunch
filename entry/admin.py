@@ -1,5 +1,5 @@
 from django.contrib import admin
-from sacklunch.entry.models import Entry
+from entry.models import Entry
 
 
 # Register your models here.

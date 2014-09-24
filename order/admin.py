@@ -1,5 +1,5 @@
 from django.contrib import admin
-from sacklunch.order.models import Order
+from order.models import Order
 
 
 # Register your models here.
