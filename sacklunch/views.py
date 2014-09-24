@@ -1,8 +1,13 @@
-from django.http import HttpResponse
-import datetime
+from django.views.generic.base import TemplateView
+from django.template import RequestContext
 
+import pprint
 
-def home(request):
-    now = datetime.datetime.now()
-    html = "<html><body>It is now %s.</body></html>" % now
-    return HttpResponse(html)
+class Home(TemplateView):
+	template_name = 'home.html'
+	def get_context_data(self, **kwargs):
+		context = super(Home, self).get_context_data(**kwargs)
+		context['css'] = ['homepage']
+		context['js'] = ['homepage']
+
+		return context

@@ -20,11 +20,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'eu*fnc92tb0=#5n3lb4#w9cl&p)x-jk3cwjp-6ypf%1x&+7&!('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-TEMPLATE_DEBUG = False
+TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
+
+# Templates
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'sacklunch/templates')]
 
 
 # Application definition
@@ -80,6 +83,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT= os.path.join(BASE_DIR,'sacklunch/staticfiles/')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,'sacklunch/static/'),
+)
 
 try:
     from local import *

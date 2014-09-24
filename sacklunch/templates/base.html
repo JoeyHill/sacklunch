@@ -1,0 +1,19 @@
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{% block title %} Sacklunch {% endblock %}</title>
+</head>
+<body>
+	<header>
+		This is our header
+	</header>
+
+	<div id="content">{% block content %}{% endblock %}</div>
+
+	<footer>
+	This is our footer and it is {% now D %}
+	</footer>
+</body>

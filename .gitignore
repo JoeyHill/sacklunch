@@ -58,3 +58,9 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Mac Stuff:
+*.DS_Store
+
+# SASS Stuff
+*.sass-cache*
