@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 	<title>{% block title %} Sacklunch {% endblock %}</title>
-	<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="/static/images/logo.png" type="image/x-icon"/>
 
 	<!-- Meta Tags -->
 	<!-- Always force latest IE rendering engine or request Chrome Frame -->
@@ -17,7 +17,7 @@
 
 	<!-- Core CSS files -->
 	<link rel="stylesheet" type="text/css" href="{% static 'stylesheets/core.css' %}" />
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<!-- Include page specific css -->
 	{% for file in css %}
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}stylesheets/{{ file }}.css" />
@@ -32,12 +32,21 @@
 </head>
 <body>
 	<header>
-		This is our header
+		<div id="header-contents">
+			<div id="header-left">
+				<a href="/">
+					<span class="header-inline">
+						<img id="header-logo" src="{{ STATIC_PREFIX }}images/paperbag.png"/>
+					</span>
+					<span id="header-title" class="header-inline">Sack Lunch</span>
+				</a>
+			</div>
+		</div>
 	</header>
 
 	<div id="content">{% block content %}{% endblock %}</div>
 
 	<footer>
-		This is our footer and it is {% now D %}
+		Tropicana Student Housing &copy; {% now "Y" %}
 	</footer>
 </body>
