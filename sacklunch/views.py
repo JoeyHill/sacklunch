@@ -1,5 +1,6 @@
 from django.views.generic.base import TemplateView
 from django.template import RequestContext
+from django.http import HttpResponse
 
 import pprint
 
@@ -11,3 +12,7 @@ class Home(TemplateView):
 		context['js'] = ['homepage']
 
 		return context
+
+
+def hello(request):
+    return HttpResponse("Hello world")
