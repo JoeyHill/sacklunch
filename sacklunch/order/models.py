@@ -2,6 +2,7 @@ from django.db import models
 from sacklunch.entry.models import Entry
 from sacklunch.employee.models import Employee
 from datetime import datetime, timedelta
+from sacklunch.item.models import Item
 
 # Create your models here.
 class Order(models.Model):
@@ -22,13 +23,38 @@ class Order(models.Model):
 
 	def __unicode__(self):
 		return str(self.orderid)
-	def create():
-		entryid=0
-		namefirst=""
-		namelast=""
-		authenticated=False
-		processed=False
-		processedon='null'
-		processedbyid='null'
-		modified = datetime.datetime.now()
-		created = datetime.datetime.now()
+
+
+class OrderFailureEnum(models.Model):	
+	orderfailureenumid = models.AutoField(db_column='OrderFailureEnumID', primary_key=True) # Field name made lowercase.
+	description = models.CharField(db_column='Description', max_length=100, blank=True) # Field name made lowercase.
+	class Meta:
+		managed = False
+		db_table = 'OrderFailureEnum'
+	def __unicode__(self):
+		return self.description
+
+
+class OrderFailure(models.Model):
+	orderfailureid = models.AutoField(db_column='OrderFailureID', primary_key=True) # Field name made lowercase.
+	orderid = models.ForeignKey(Order, db_column='OrderID', blank=True, null=True) # Field name made lowercase.
+	failuredate = models.DateField(db_column='FailureDate') # Field name made lowercase.
+	orderfailureenumid = models.ForeignKey(OrderFailureEnum, db_column='OrderFailureEnumID') # Field name made lowercase.
+	class Meta:
+		managed = False
+		db_table = 'OrderFailures'
+
+	def __unicode__(self):
+		return self.orderfailureid
+
+class OrderItems(models.Model):
+	orderitemsid = models.AutoField(db_column='OrderItemsID', primary_key=True) # Field name made lowercase.
+	orderid = models.ForeignKey(Order, db_column='OrderID') # Field name made lowercase.
+	itemid = models.ForeignKey(Item, db_column='ItemID') # Field name made lowercase.
+	itemquantity = models.IntegerField(db_column='ItemQuantity') # Field name made lowercase.
+	orderfilled = models.BooleanField(db_column='OrderFilled') # Field name made lowercase.
+	class Meta:
+		managed = False
+		db_table = 'OrderItems'
+	def __unicode__(self):
+		return self.orderitemsid
