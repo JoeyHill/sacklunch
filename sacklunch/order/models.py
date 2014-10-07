@@ -22,7 +22,7 @@ class Order(models.Model):
 		db_table = 'Order'
 
 	def __unicode__(self):
-		return str(self.orderid)
+		return str(self.orderid)+" - "+self.entryid.namefirst+" "+self.entryid.namelast
 
 
 class OrderFailureEnum(models.Model):	
