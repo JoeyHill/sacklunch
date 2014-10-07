@@ -3,6 +3,8 @@ from sacklunch.entry.models import Entry
 from sacklunch.employee.models import Employee
 from datetime import datetime, timedelta
 from sacklunch.item.models import Item
+from django import forms
+from django.forms import ModelForm
 
 # Create your models here.
 class Order(models.Model):
@@ -58,3 +60,10 @@ class OrderItems(models.Model):
 		db_table = 'OrderItems'
 	def __unicode__(self):
 		return self.orderitemsid
+
+class OrderForm1(forms.Form):
+	date = forms.DateField(label='Date')
+
+class OrderForm(ModelForm):
+	class Meta:
+		model = Order
