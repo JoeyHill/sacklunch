@@ -23,12 +23,24 @@ class Item(models.Model):
 	def __unicode__(self):
 		return self.description
 
+class SubItemType(models.Model):
+	subitemtypeid=models.AutoField(db_column="SubItemTypeID", primary_key=True)
+	description=models.CharField(db_column="Description", max_length=100)
+	itemid=models.ForeignKey(Item, db_column="ItemID")
+	class Meta:
+		managed=False
+		db_table="SubItemType"
+	def __unicode__(self):
+		return self.description
+
 class SubItem(models.Model):
 	subitemid=models.AutoField(db_column="SubItemID", primary_key=True)
-	itemid = models.ForeignKey(Item, db_column='ItemID', default=True, blank=True, null=True)
+	subitemtypeid = models.ForeignKey(SubItemType, db_column='SubItemTypeID', default=True, blank=True, null=True)
 	description=models.CharField(db_column="Description", max_length=100)
 	class Meta:
 		managed=False
 		db_table="SubItem"
 	def __unicode__(self):
 		return self.description
+
+

@@ -61,9 +61,4 @@ class OrderItems(models.Model):
 	def __unicode__(self):
 		return self.orderitemsid
 
-class OrderForm1(forms.Form):
-	date = forms.DateField(label='Date')
 
-class OrderForm(ModelForm):
-	class Meta:
-		model = Order

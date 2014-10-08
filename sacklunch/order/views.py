@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 import datetime
+#from sacklunch.order.models import *
+from sacklunch.order.forms import *
 from sacklunch.order.models import *
 from django.forms.models import inlineformset_factory
 
@@ -20,13 +22,13 @@ def createRelationOrder(request):
     order=Order.objects.get(pk=3)
     OrderInlineFormSet = inlineformset_factory(Order, OrderItems)
     if request.method == "POST":
-        formset = OrderInlineFormSet(request.POST, request.FILES, instance=order)
+        formset = OrderInlineFormSet(request.POST, request.FILES)
         if formset.is_valid():
             formset.save()
             # Do something. Should generally end with a redirect. For example:
             return HttpResponseRedirect(order.get_absolute_url())
     else:
-        formset = OrderInlineFormSet(instance=order)
+        formset = OrderInlineFormSet()
     return render_to_response("formTemplate.html", {
         "formset": formset,
     })
