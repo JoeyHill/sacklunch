@@ -29,6 +29,8 @@ class ItemEntree(models.Model):
 	itementreeid = models.AutoField(db_column='ItemEntreeID', primary_key=True) # Field name made lowercase.
 	description = models.CharField(db_column='Description', max_length=100) # Field name made lowercase.
 	active = models.BooleanField(db_column="Active", default=True)
+	activefrom = models.DateField(db_column="ActiveFrom", null=True, blank=True)
+	activeto = models.DateField(db_column="ActiveTo", null=True, blank=True)
 	class Meta:
 		managed = True
 		db_table = 'ItemEntree'
@@ -41,6 +43,9 @@ class ItemEntree(models.Model):
 class ItemDrink(models.Model):
 	itemdrinkid = models.AutoField(db_column='ItemDrinkID', primary_key=True) # Field name made lowercase.
 	description = models.CharField(db_column='Description', max_length=100) # Field name made lowercase.
+	active = models.BooleanField(db_column="Active", default=True)
+	activefrom = models.DateField(db_column="ActiveFrom", null=True, blank=True)
+	activeto = models.DateField(db_column="ActiveTo", null=True, blank=True)
 	class Meta:
 		managed = False
 		db_table = 'ItemDrink'
@@ -54,6 +59,9 @@ class ItemDrink(models.Model):
 class ItemFruit(models.Model):
 	itemfruitid = models.AutoField(db_column='ItemFruitID', primary_key=True) # Field name made lowercase.
 	description = models.CharField(db_column='Description', max_length=100) # Field name made lowercase.
+	active = models.BooleanField(db_column="Active", default=True)
+	activefrom = models.DateField(db_column="ActiveFrom", null=True, blank=True)
+	activeto = models.DateField(db_column="ActiveTo", null=True, blank=True)
 	class Meta:
 		managed = False
 		db_table = 'ItemFruit'
@@ -67,6 +75,9 @@ class ItemFruit(models.Model):
 class ItemSide(models.Model):
 	itemsideid = models.AutoField(db_column='ItemSideID', primary_key=True) # Field name made lowercase.
 	description = models.CharField(db_column='Description', max_length=100) # Field name made lowercase.
+	active = models.BooleanField(db_column="Active", default=True)
+	activefrom = models.DateField(db_column="ActiveFrom", null=True, blank=True)
+	activeto = models.DateField(db_column="ActiveTo", null=True, blank=True)
 	class Meta:
 		managed = False
 		db_table = 'ItemSide'
