@@ -28,8 +28,9 @@ class Item(models.Model):
 class ItemEntree(models.Model):
 	itementreeid = models.AutoField(db_column='ItemEntreeID', primary_key=True) # Field name made lowercase.
 	description = models.CharField(db_column='Description', max_length=100) # Field name made lowercase.
+	active = models.BooleanField(db_column="Active", default=True)
 	class Meta:
-		managed = False
+		managed = True
 		db_table = 'ItemEntree'
 		verbose_name = 'Entree'
 
