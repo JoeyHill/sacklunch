@@ -1,5 +1,5 @@
 from django.db import models
-#from sacklunch.order.models import Order
+
 
 
 # Create your models here.
@@ -48,7 +48,15 @@ class Sandwich(models.Model):
 	swmeatid = models.ForeignKey(swMeat,db_column='swMeatID') # Field name made lowercase.
 	swcheeseid = models.ForeignKey(swCheese, db_column='swCheeseID') # Field name made lowercase.
 	
-	
+	def description(self):
+		oid = 0
+		if self.orderid == None:
+			oid = 0
+		else:
+			oid = self.orderid
+		from sacklunch.order.models import Order
+		o = Order.objects.get(pk=oid)
+		return str(o)+" - ["+self.swbreadid.description+", "+self.swmeatid.description+", "+self.swcheeseid.description+"]"
 
 	class Meta:
 		managed = False
@@ -57,5 +65,5 @@ class Sandwich(models.Model):
 	
 	def __unicode__(self):
 		
-		return str(self.orderid)
+		return self.description()
 
