@@ -67,3 +67,23 @@ class Sandwich(models.Model):
 		
 		return self.description()
 
+class Topping(models.Model):
+	toppingid = models.AutoField(db_column='ToppingID', primary_key=True)
+	description = models.CharField(db_column='Description', max_length=100)
+	class Meta:
+		managed=False
+		db_table='Topping'
+		verbose_name='Topping'
+	def __unicode__(self):
+		return self.description
+
+class SandwichTopping(models.Model):
+	sandwichtoppingid = models.AutoField(db_column='SandwichToppingID', primary_key=True)
+	sandwichid=models.ForeignKey(Sandwich, db_column="SandwichID")
+	toppingid=models.ForeignKey(Topping, db_column="ToppingID")
+	class Meta:
+		managed=False
+		db_table='SandwichTopping'
+		verbose_name = 'Sandwich Topping'
+
+

@@ -6,4 +6,13 @@ from models import *
 admin.site.register(swBread)
 admin.site.register(swMeat)
 admin.site.register(swCheese)
-admin.site.register(Sandwich)
+
+admin.site.register(Topping)
+
+class ToppingInline(admin.TabularInline):
+	model=SandwichTopping
+	extra=1
+class SandwichToppingAdmin(admin.ModelAdmin):
+	inlines = [ToppingInline]
+admin.site.register(Sandwich, SandwichToppingAdmin)
+#admin.site.register(SandwichTopping)
