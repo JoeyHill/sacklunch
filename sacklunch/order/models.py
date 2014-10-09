@@ -2,29 +2,33 @@ from django.db import models
 from sacklunch.entry.models import Entry
 from sacklunch.employee.models import Employee
 from datetime import datetime, timedelta
-from sacklunch.item.models import Item
+from sacklunch.item.models import *
 from django import forms
 from django.forms import ModelForm
+from sacklunch.sandwich.models import Sandwich
 
 # Create your models here.
 class Order(models.Model):
 	orderid = models.AutoField(db_column='OrderID', primary_key=True) # Field name made lowercase.
 	entryid = models.ForeignKey(Entry, db_column='EntryID', default=True, blank=True, null=True) # Field name made lowercase.
-	namefirst = models.CharField(db_column='NameFirst', max_length=50, blank=True) # Field name made lowercase.
-	namelast = models.CharField(db_column='NameLast', max_length=50, blank=True) # Field name made lowercase.
 	authenticated = models.BooleanField(db_column='Authenticated', default=False) # Field name made lowercase.
 	processed = models.BooleanField(db_column='Processed', default=False) # Field name made lowercase.
 	processedbyid = models.IntegerField(db_column='ProcessedByID', default=0, blank=True, null=True) # Field name made lowercase.
 	processedon = models.DateField(db_column='ProcessedOn', blank=True, null=True) # Field name made lowercase.
 	duedate = models.DateField(db_column='DueDate', default=datetime.now() + timedelta(days=30), blank=True, null=True) # Field name made lowercase.
 	modified = models.DateTimeField(db_column='Modified', auto_now=True) # Field name made lowercase.
-	created = models.DateField(db_column='Created', auto_now_add=True, null=True) # Field name made lowercase.
+	created = models.DateField(db_column='Created', editable=False, auto_now_add=True, null=True) # Field name made lowercase.
+	itementreeid = models.ForeignKey(ItemEntree, db_column='ItemEntreeID', verbose_name='Entree')
+	itemdrinkid = models.ForeignKey(ItemDrink, db_column='ItemDrinkID', verbose_name='Drink')
+	itemfruitid = models.ForeignKey(ItemFruit, db_column='ItemFruitID', verbose_name='Fruit')
+	itemsideid = models.ForeignKey(ItemSide, db_column='ItemSideID', verbose_name='Side')
+	sandwichid = models.ForeignKey(Sandwich, db_column='SandwichID', verbose_name='Sandwich')
 	class Meta:
 		managed = False
 		db_table = 'Order'
 
 	def __unicode__(self):
-		return str(self.orderid)+" - "+self.entryid.namefirst+" "+self.entryid.namelast
+		return str(self.created)+" - "+self.entryid.namefirst+" "+self.entryid.namelast
 
 
 class OrderFailureEnum(models.Model):	
@@ -58,6 +62,7 @@ class OrderItems(models.Model):
 	class Meta:
 		managed = False
 		db_table = 'OrderItems'
+		verbose_name='Order Item'
 	def __unicode__(self):
 		return self.orderitemsid
 

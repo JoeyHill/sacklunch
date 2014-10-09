@@ -6,3 +6,4 @@ from models import *
 admin.site.register(swBread)
 admin.site.register(swMeat)
 admin.site.register(swCheese)
+admin.site.register(Sandwich)

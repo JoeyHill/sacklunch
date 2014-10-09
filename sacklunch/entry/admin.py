@@ -3,4 +3,4 @@ from models import Entry
 
 
 # Register your models here.
-admin.site.register(Entry)
+# admin.site.register(Entry)

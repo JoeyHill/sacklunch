@@ -1,15 +1,10 @@
 from django.contrib import admin
-from models import Order, OrderItems
+from models import Order
+from sacklunch.item.models import *
 
 
-class OrderItemsTabular(admin.TabularInline):
-	model=OrderItems
-	extra=1
 
-class OrderItemAdmin(admin.ModelAdmin):
-	# fields = ['description', 'itemtypeid']
-	inlines=[OrderItemsTabular]
 
 # Register your models here.
-admin.site.register(Order, OrderItemAdmin)
-# admin.site.register(OrderItems)
+admin.site.register(Order)
+

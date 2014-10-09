@@ -1,5 +1,5 @@
 from django.db import models
-from sacklunch.order.models import Order
+#from sacklunch.order.models import Order
 
 
 # Create your models here.
@@ -43,16 +43,19 @@ class swCheese(models.Model):
 
 class Sandwich(models.Model):	
 	sandwichid = models.AutoField(db_column='SandwichID', primary_key=True) # Field name made lowercase.
-	orderid = models.ForeignKey(Order, db_column='OrderID') # Field name made lowercase.
+	orderid = models.IntegerField(db_column='OrderID', editable=False) # Field name made lowercase.
 	swbreadid = models.ForeignKey(swBread, db_column='swBreadID') # Field name made lowercase.
 	swmeatid = models.ForeignKey(swMeat,db_column='swMeatID') # Field name made lowercase.
 	swcheeseid = models.ForeignKey(swCheese, db_column='swCheeseID') # Field name made lowercase.
 	
+	
+
 	class Meta:
 		managed = False
 		db_table = 'Sandwich'
 		verbose_name_plural = 'Sandwiches'
 	
 	def __unicode__(self):
+		
 		return str(self.orderid)
 
