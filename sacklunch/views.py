@@ -16,3 +16,4 @@ class Home(TemplateView):
 
 def hello(request):
     return HttpResponse("Hello world")
+

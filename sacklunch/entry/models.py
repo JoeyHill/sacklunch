@@ -5,6 +5,8 @@ class Entry(models.Model):
 	entryid = models.IntegerField(db_column='EntryID', primary_key=True) # Field name made lowercase.
 	namefirst = models.CharField(db_column='NameFirst', max_length=50, blank=True) # Field name made lowercase.
 	namelast = models.CharField(db_column='NameLast', max_length=50, blank=True) # Field name made lowercase.
+	fullname = u'%s %s' % (namefirst, namelast)
+
 	class Meta:
 		managed = False
 		db_table = 'Entry'

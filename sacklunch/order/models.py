@@ -22,7 +22,7 @@ class Order(models.Model):
 	itemdrinkid = models.ForeignKey(ItemDrink, db_column='ItemDrinkID', verbose_name='Drink')
 	itemfruitid = models.ForeignKey(ItemFruit, db_column='ItemFruitID', verbose_name='Fruit')
 	itemsideid = models.ForeignKey(ItemSide, db_column='ItemSideID', verbose_name='Side')
-	sandwichid = models.ForeignKey(Sandwich, db_column='SandwichID', verbose_name='Sandwich')
+	sandwichid = models.ForeignKey(Sandwich, db_column='SandwichID', verbose_name='Sandwich', blank=True, null=True)
 	class Meta:
 		managed = False
 		db_table = 'Order'
