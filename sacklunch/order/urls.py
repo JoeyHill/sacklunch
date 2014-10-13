@@ -10,5 +10,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     # url(r'^$','',name='createorder')),
     # url(r'^$',hello)
-    url(r'^create/$',views.createRelationOrder, name='newOrder'),
+    url(r'^create/$',views.OrderForm.as_view(), name='newOrder'),
+    url(r'^list/$', views.OrderList.as_view(), name='listOrder'),
+    url(r'^list/(?P<pk>\d)/', views.OrderDetail.as_view()),
 )

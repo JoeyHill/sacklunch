@@ -2,40 +2,44 @@ from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 import datetime
-#from sacklunch.order.models import *
 from sacklunch.order.forms import *
 from sacklunch.order.models import *
-from django.forms.models import inlineformset_factory
+
+
 
 # Create your views here.
-def createorder(request):
-	if request.method == "POST":
-		form = OrderForm(request.POST)
-		if form.is_valid():
-			return HttpResponseRedirect('/thanks/')
-	else:
-		form = OrderForm()
 
-	return render(request, 'formTemplate.html', {'form': form})
 
-def createRelationOrder(request):
-    order=Order.objects.get(pk=3)
-    OrderInlineFormSet = inlineformset_factory(Order, OrderItems)
-    if request.method == "POST":
-        formset = OrderInlineFormSet(request.POST, request.FILES)
-        if formset.is_valid():
-            formset.save()
-            # Do something. Should generally end with a redirect. For example:
-            return HttpResponseRedirect(order.get_absolute_url())
-    else:
-        formset = OrderInlineFormSet()
-    return render_to_response("formTemplate.html", {
-        "formset": formset,
-    })
 
-def order_view(request):
-     html = "<html><body>New View</body></html>"
-     return HttpResponse(html)
+from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from sacklunch.authUtils import LoggedInMixin
 
-def hello(request):
-    return HttpResponse("Hello world")
+
+
+class OrderForm(LoggedInMixin, CreateView):
+    template_name = 'formTemplate.html'
+    model = Order
+    success_url = '/orderlist/'
+    fields = ('itementreeid', 'itemdrinkid', 'itemsideid', 'itemfruitid', 'owner')
+    def get_context_data(self, **kwargs):
+        context = super(OrderForm, self).get_context_data(**kwargs)
+        context['form'].fields['owner'].queryset = User.objects.filter(id=self.request.user.id)
+        return context
+    def get_initial(self):
+        initial = super(OrderForm, self).get_initial()
+        initial = initial.copy()
+        initial['owner'] = self.request.user.id
+        return initial
+
+
+class OrderList(LoggedInMixin, ListView):
+    model = Order
+    def get_queryset(self):
+        return Order.objects.filter(owner=self.request.user)
+
+
+class OrderDetail(LoggedInMixin, DetailView):
+    model = Order
+

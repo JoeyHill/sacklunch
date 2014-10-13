@@ -6,12 +6,11 @@
 
 <!-- Begin FirstForm content -->
 {% block content %}
-<form action="/first-form/" method="post">
+<form action="" method="post">
 {% csrf_token %}
-{{formset.management_form}}
-<p>{% for form in formset%}
-{{form.as_p}}
-{% endfor %}
+<p>{{form.as_p}}
+{{ user.id }}
+
 </p>
 <input type="submit" value="Submit">
 {% endblock %}

@@ -1,6 +1,12 @@
 from django.views.generic.base import TemplateView
 from django.template import RequestContext
 from django.http import HttpResponse
+from rest_framework import generics, permissions
+from django.views.generic import ListView
+from django.core.urlresolvers import reverse
+from sacklunch.authUtils import LoggedInMixin
+from django.shortcuts import redirect
+import sacklunch
 
 import pprint
 
@@ -16,4 +22,18 @@ class Home(TemplateView):
 
 def hello(request):
     return HttpResponse("Hello world")
+
+from django.contrib.auth.models import User
+from serializers import * 
+from order.models import Order
+
+def account_redirect(request):
+	
+	return redirect('/order/list/', permanent=True)
+
+#class OrderList(generics.ListAPIView):
+#    queryset = Order.objects.all()
+#    serializer_class = OrderSerializer
+#    permission_classes = [permissions.IsAuthenticated,]
+
 
