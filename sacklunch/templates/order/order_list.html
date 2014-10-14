@@ -3,12 +3,15 @@
 {% block title %}Your Orders{% endblock %}
 
 {% block content %}
-<h1>{{ section.title }}</h1>
+<h1>Your Orders</h1>
 
 {% for order in order_list %}
 <h2>
   <a href="{{ order.orderid }}">
-    {{order|upper}}
+    {{order.duedate|date:"D, M d, Y"}} - 
+    {% if not order.processed %}
+    	Pending
+    {% endif %}
   </a>
 </h2>
 {% endfor %}

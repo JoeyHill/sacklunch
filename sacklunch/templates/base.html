@@ -70,9 +70,6 @@
 		</ul>
 	</div>
 	<div id="content"
-	{% if 'login' in request.path %}
-	style="margin:auto; width:250px;"
-	{% endif %}
 
 	>{% block content %}{% endblock %}</div>
 <p>{% if 'logout' in request.path %}
