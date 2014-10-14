@@ -79,6 +79,11 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
+TEMPLATE_CONTEXT_PROCESSORS = ( 
+  'django.core.context_processors.request',
+  'django.contrib.auth.context_processors.auth',
+ )
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True

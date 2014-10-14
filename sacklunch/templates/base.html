@@ -57,8 +57,13 @@
 		</div>
 	</header>
 
-	<div id="content">{% block content %}{% endblock %}</div>
+	<div id="content"
+	{% if 'login' in request.path %}
+	style="margin:auto; width:250px;"
+	{% endif %}
 
+	>{% block content %}{% endblock %}</div>
+<p></p>
 	<footer>
 		Tropicana Student Living &copy; {% now "Y" %}
 	</footer>
