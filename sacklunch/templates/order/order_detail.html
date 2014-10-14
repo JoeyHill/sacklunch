@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-{{ object }}
+	{% for field in object.get_field_values %}
+		<p>{{field.name}}:{{field}}</p>
+	{% endfor %}
 {% endblock %}

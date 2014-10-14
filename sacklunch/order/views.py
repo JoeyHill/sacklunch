@@ -15,6 +15,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from sacklunch.authUtils import LoggedInMixin
+from django.views.generic import View
 
 
 
@@ -42,4 +43,7 @@ class OrderList(LoggedInMixin, ListView):
 
 class OrderDetail(LoggedInMixin, DetailView):
     model = Order
+
+
+    
 

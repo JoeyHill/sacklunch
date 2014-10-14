@@ -55,6 +55,9 @@
 				</a>
 			</div>
 		</div>
+		{% if user.is_authenticated %}
+			<div style="position:absolute; right: 0px; top:0px;"><a href="/logout/">Logout {{request.user.name}}</a></div>
+		{% endif %}
 	</header>
 
 	<div id="content"
@@ -63,7 +66,9 @@
 	{% endif %}
 
 	>{% block content %}{% endblock %}</div>
-<p></p>
+<p>{% if 'logout' in request.path %}
+	<a href='/'>Home</a>
+	{% endif %}</p>
 	<footer>
 		Tropicana Student Living &copy; {% now "Y" %}
 	</footer>

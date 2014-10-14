@@ -35,6 +35,9 @@ class Order(models.Model):
 	def __unicode__(self):
 		return str(self.created)+" - "+self.entryid.namefirst+" "+self.entryid.namelast
 
+	def get_field_values(self):
+		return [field.value_to_string(self) for field in Order._meta.fields]
+
 
 class OrderFailureEnum(models.Model):	
 	orderfailureenumid = models.AutoField(db_column='OrderFailureEnumID', primary_key=True) # Field name made lowercase.
