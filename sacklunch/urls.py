@@ -21,7 +21,6 @@ router = routers.DefaultRouter()
 # Additionally, we include login URLs for the browseable API.
 from views import account_redirect
 
-
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', views.Home.as_view(), name='home'),

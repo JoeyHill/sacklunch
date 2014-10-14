@@ -44,6 +44,9 @@ class OrderList(LoggedInMixin, ListView):
 class OrderDetail(LoggedInMixin, DetailView):
     model = Order
 
-
+def order_view(request, orderid):
+    order = Order.objects.get(orderid=orderid)
+    context = {'order': order}
+    return render(request, 'order/order_detail.html', context)
     
 

@@ -56,7 +56,7 @@ class Sandwich(models.Model):
 			oid = self.orderid
 		from sacklunch.order.models import Order
 		o = Order.objects.get(pk=oid)
-		return str(o)+" - ["+self.swbreadid.description+", "+self.swmeatid.description+", "+self.swcheeseid.description+"]"
+		return "["+self.swbreadid.description+", "+self.swmeatid.description+", "+self.swcheeseid.description+"]"
 
 	class Meta:
 		managed = False

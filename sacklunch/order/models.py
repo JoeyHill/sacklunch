@@ -19,7 +19,7 @@ class Order(models.Model):
 	processed = models.BooleanField(db_column='Processed', default=False) # Field name made lowercase.
 	processedbyid = models.IntegerField(db_column='ProcessedByID', default=0, blank=True, null=True) # Field name made lowercase.
 	processedon = models.DateField(db_column='ProcessedOn', blank=True, null=True) # Field name made lowercase.
-	duedate = models.DateField(db_column='DueDate', default=datetime.now() + timedelta(days=30), blank=True, null=True) # Field name made lowercase.
+	duedate = models.DateField(db_column='DueDate', default=datetime.now() + timedelta(days=1), blank=True, null=True) # Field name made lowercase.
 	modified = models.DateTimeField(db_column='Modified', auto_now=True, editable=False) # Field name made lowercase.
 	created = models.DateField(db_column='Created', editable=False, auto_now_add=True, null=True) # Field name made lowercase.
 	itementreeid = models.ForeignKey(ItemEntree, db_column='ItemEntreeID', verbose_name='Entree')
@@ -33,7 +33,7 @@ class Order(models.Model):
 		db_table = 'Order'
 
 	def __unicode__(self):
-		return str(self.created)+" - "+self.entryid.namefirst+" "+self.entryid.namelast
+		return str(self.duedate)+" - "+self.entryid.namefirst+" "+self.entryid.namelast
 
 	def get_field_values(self):
 		return [field.value_to_string(self) for field in Order._meta.fields]

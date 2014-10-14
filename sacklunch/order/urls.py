@@ -12,5 +12,5 @@ urlpatterns = patterns('',
     # url(r'^$',hello)
     url(r'^create/$',views.OrderForm.as_view(), name='newOrder'),
     url(r'^list/$', views.OrderList.as_view(), name='listOrder'),
-    url(r'^list/(?P<pk>\d)/', views.OrderDetail.as_view()),
+    url(r'^list/(?P<pk>\d+)/', views.OrderDetail.as_view()),
 )

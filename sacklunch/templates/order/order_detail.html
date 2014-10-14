@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-	{% for field in object.get_field_values %}
-		<p>{{field.name}}:{{field}}</p>
-	{% endfor %}
+	Object: {{object}}<br/>
+	{% if object.sandwichid %}
+	Sandwich: {{object.sandwichid}}
+	{% endif %}
+	{% if object.sandwichid == None %}
+	Entree: {{object.itementreeid}}
+	{% endif %}
 {% endblock %}
