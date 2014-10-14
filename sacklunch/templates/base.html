@@ -56,10 +56,19 @@
 			</div>
 		</div>
 		{% if user.is_authenticated %}
-			<div style="position:absolute; right: 0px; top:0px;"><a href="/logout/">Logout {{request.user.name}}</a></div>
+			<div style="position:absolute; right: 0px; top:0px; padding: 10px; padding-right:50px; "><a href="/logout/">Logout {{request.user.name}}</a></div>
+
 		{% endif %}
 	</header>
-
+	<div id='topmenu'>
+		<ul>
+			<li><a href="/">Home</a></li>
+			{% if user.is_authenticated %}
+				<li><a href="/order/list/">Orders</a></li>
+				<li><a href="/order/create/">New Order</a></li>
+			{% endif %}
+		</ul>
+	</div>
 	<div id="content"
 	{% if 'login' in request.path %}
 	style="margin:auto; width:250px;"

@@ -15,7 +15,7 @@ class Home(TemplateView):
 	
 	def dispatch(self, request, *args, **kwargs):
 		if request.user.is_authenticated:
-			return redirect('/order/list/', permanent=True)
+			return redirect('/order/list/')
 		return super(Home, self).dispatch(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):

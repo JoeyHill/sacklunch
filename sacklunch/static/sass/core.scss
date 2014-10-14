@@ -44,6 +44,32 @@ header {
 	display: table-cell;
 	vertical-align: middle;
 }
+#topmenu{
+	height: 30px;
+	background-color: $baseDarkBackground;
+	margin: 0px;
+	text-align: left;
+	ul{
+		list-style-type: none;
+    	margin: 0;
+    	padding: 0;
+    	padding-left: 50px;
+		display: block;
+		color: $baseOrange;
+		li{
+			display: inline;
+			padding: 10px;
+			a{
+				&:hover{
+					color: $baseLightGrey;
+				}
+			}
+		}
+
+
+	}
+
+}
 /* Footer */
 footer {
 	background: $baseDarkBackground;
