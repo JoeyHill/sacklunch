@@ -1,15 +1,20 @@
 from django.db import models
+from django.contrib.auth.models import User
+import urllib
 
 # Create your models here.
 class Entry(models.Model):
-	entryid = models.IntegerField(db_column='EntryID', primary_key=True) # Field name made lowercase.
-	namefirst = models.CharField(db_column='NameFirst', max_length=50, blank=True) # Field name made lowercase.
-	namelast = models.CharField(db_column='NameLast', max_length=50, blank=True) # Field name made lowercase.
-	fullname = u'%s %s' % (namefirst, namelast)
+	user = models.OneToOneField(User)
+	entryid = models.IntegerField(default=0, null=False)
+	username = models.EmailField(null=False)
 
 	class Meta:
 		managed = False
 		db_table = 'Entry'
 
 	def __unicode__(self):
-		return u'%s %s' % (self.namefirst, self.namelast)
+		return u'%s %s' % (self.user.first_name, self.user.last_name)
+
+	def isStarRez(self):
+
+		return True

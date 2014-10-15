@@ -30,6 +30,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^accounts/profile/$', account_redirect)
+    url(r'^accounts/profile/$', account_redirect),
+    url(r'^register/$', views.AddUser.as_view()),
     
 )

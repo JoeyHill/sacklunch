@@ -8,7 +8,7 @@
 {% block content %}
 <form action="{{action}}" method="post">
 {% csrf_token %}
-<p>{{form.as_p}}</p>
+<p>{{form.object.username}}</p>
 <input type="submit" value="Submit">
 {% endblock %}
 <!-- End FirstForm content -->
