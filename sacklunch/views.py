@@ -14,6 +14,12 @@ from django.core.exceptions import ValidationError
 
 import pprint
 
+def user_exists(username):
+	if User.objects.filter(username=username).count():
+		return True
+	return False
+
+
 class Home(TemplateView):
 	template_name = 'home.html'
 	
@@ -41,12 +47,27 @@ def account_redirect(request):
 
 
 from django import forms
+from django.shortcuts import HttpResponseRedirect
+from django.contrib.auth import login
+import datetime
 
 class UserForm(forms.ModelForm):
-	def clean_username(self):
-		data = self.cleaned_data['username'] 
-		if True:
-			raise forms.ValidationError("You have forgotten about Fred!")
+
+	def clean_password(self):
+		uname = self.cleaned_data['username'] 
+		pword = self.cleaned_data['password']
+		user = self.save()
+		user.set_password(pword)
+		data = user.password
+		user.save()
+
+
+		#if user_exists(uname):
+			#response = urllib.urlopen('http://tropicanagardens.com/it/test.html')
+			#result = response.read()
+			#login(req, self.get_user())
+			#return HttpResponseRedirect('/order/list/')
+			#raise forms.ValidationError(result)
 
 		# Always return the cleaned data, whether you have changed it or
 		# not.

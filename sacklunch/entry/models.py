@@ -8,6 +8,7 @@ class Entry(models.Model):
 	entryid = models.IntegerField(default=0, null=False)
 	username = models.EmailField(null=False)
 
+
 	class Meta:
 		managed = False
 		db_table = 'Entry'
