@@ -52,14 +52,16 @@ from django.contrib.auth import login
 import datetime
 
 class UserForm(forms.ModelForm):
+	
 
 	def clean_password(self):
-		uname = self.cleaned_data['username'] 
 		pword = self.cleaned_data['password']
 		user = self.save()
+		#hashes the password
 		user.set_password(pword)
 		data = user.password
 		user.save()
+			
 
 
 		#if user_exists(uname):
@@ -75,12 +77,23 @@ class UserForm(forms.ModelForm):
 	class Meta:
 		model = User
 		fields = ('username', 'password')
-
+		widgets = {
+            'password': forms.PasswordInput(),
+        }
+from django.contrib.auth import authenticate, login, logout
 class AddUser(CreateView):
 	template_name = "auth/user_form.html"
 	form_class = UserForm
-	
-
+	success_url = '/order/list/'
+	#Auto Login for Successful Registration
+	def get_success_url(self):
+		request = self.request
+		user = authenticate(username=request.POST['username'], password=request.POST['password'])
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				redirect('/order/list/')
+		return super(AddUser, self).get_success_url()
 
 		
 
@@ -90,5 +103,6 @@ class AddUser(CreateView):
 #    queryset = Order.objects.all()
 #    serializer_class = OrderSerializer
 #    permission_classes = [permissions.IsAuthenticated,]
+
 
 
