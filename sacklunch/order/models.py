@@ -33,7 +33,7 @@ class Order(models.Model):
 		db_table = 'Order'
 
 	def __unicode__(self):
-		return str(self.duedate)+" - "+self.entryid.namefirst+" "+self.entryid.namelast
+		return str(self.duedate)+" - "+self.owner.first_name+" "+self.owner.last_name
 
 	def get_field_values(self):
 		return [field.value_to_string(self) for field in Order._meta.fields]
