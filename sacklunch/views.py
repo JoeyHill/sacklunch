@@ -53,13 +53,24 @@ import datetime
 
 class UserForm(forms.ModelForm):
 	def clean_password(self):
+		username = self.cleaned_data['username']
 		pword = self.cleaned_data['password']
-		user = self.save()
+		user = self.save(commit=False)
 		#hashes the password
 		user.set_password(pword)
-		data = user.password
-		user.save()
-			
+		password = user.password
+		existing = user_exists(username)
+		userobject = authenticate(username=username, password=password)
+		if existing:
+			if userobject is None:
+				raise forms.ValidationError('But the credentials supplied are incorrect.')
+
+			else:
+				data = user.password
+		else:
+			data = user.password
+			user.save()
+		return data
 
 
 		#if user_exists(uname):
@@ -71,7 +82,7 @@ class UserForm(forms.ModelForm):
 
 		# Always return the cleaned data, whether you have changed it or
 		# not.
-		return data
+			
 	class Meta:
 		model = User
 		fields = ('username', 'password')
@@ -84,9 +95,7 @@ class AddUser(CreateView):
 	template_name = "auth/user_form.html"
 	form_class = UserForm
 	success_url = '/order/list/'
-	#Form Valid Override
-	#def form_valid(self, form):
-		
+	#Form Valid Override	
 	#Auto Login for Successful Registration
 	def get_success_url(self):
 		request = self.request
@@ -96,6 +105,7 @@ class AddUser(CreateView):
 				login(request, user)
 				redirect('/order/list/')
 		return super(AddUser, self).get_success_url()
+	#prevent save if user exists, try login
 	def post(self, request, *args, **kwargs):
 		username = request.POST['username']
 		password = request.POST['password']
@@ -105,7 +115,6 @@ class AddUser(CreateView):
 				if user.is_active:
 					login(request,user)
 					return HttpResponseRedirect('/order/list/')
-					
 		return super(AddUser, self).post(self, request, *args, **kwargs)
 
 

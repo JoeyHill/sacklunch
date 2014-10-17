@@ -1,0 +1,9 @@
+Running Notes:
+
+Completed:[Modified clean_password function to verify whether the user exists, and if so, whether the user can be authenticated with the supplied credentials. If yes, login. If exists only, return validation error. If no, create user process.]: 
+
+//Login now redirects if user exists. Still creates new user if none exist, and if incorrect password is given, creates empty user. Need to find a way to prevent the creation of a user when incorrect password is given.//
+
+
+Need to incorporate login check in the User Creation process (AddUser or UserForm).
+
