@@ -64,7 +64,6 @@ class UserForm(forms.ModelForm):
 		if existing:
 			if userobject is None:
 				raise forms.ValidationError('But the credentials supplied are incorrect.')
-
 			else:
 				data = user.password
 		else:
