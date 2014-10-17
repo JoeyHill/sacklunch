@@ -52,8 +52,6 @@ from django.contrib.auth import login
 import datetime
 
 class UserForm(forms.ModelForm):
-	
-
 	def clean_password(self):
 		pword = self.cleaned_data['password']
 		user = self.save()
@@ -80,11 +78,15 @@ class UserForm(forms.ModelForm):
 		widgets = {
             'password': forms.PasswordInput(),
         }
+
 from django.contrib.auth import authenticate, login, logout
 class AddUser(CreateView):
 	template_name = "auth/user_form.html"
 	form_class = UserForm
 	success_url = '/order/list/'
+	#Form Valid Override
+	#def form_valid(self, form):
+		
 	#Auto Login for Successful Registration
 	def get_success_url(self):
 		request = self.request
@@ -94,6 +96,18 @@ class AddUser(CreateView):
 				login(request, user)
 				redirect('/order/list/')
 		return super(AddUser, self).get_success_url()
+	def post(self, request, *args, **kwargs):
+		username = request.POST['username']
+		password = request.POST['password']
+		if user_exists(username):
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				if user.is_active:
+					login(request,user)
+					return HttpResponseRedirect('/order/list/')
+					
+		return super(AddUser, self).post(self, request, *args, **kwargs)
+
 
 		
 
