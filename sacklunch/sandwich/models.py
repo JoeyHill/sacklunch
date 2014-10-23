@@ -50,6 +50,8 @@ class Topping(models.Model):
 		verbose_name='Topping'
 	def __unicode__(self):
 		return self.description
+	def getid(self):
+		return self.toppingid
 
 class Sandwich(models.Model):	
 	sandwichid = models.AutoField(db_column='SandwichID', primary_key=True) # Field name made lowercase.

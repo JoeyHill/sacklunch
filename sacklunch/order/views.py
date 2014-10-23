@@ -22,7 +22,7 @@ from django.views.generic import View
 
 
 class OrderFormClass(forms.ModelForm):
-    itementreeid = forms.ModelChoiceField(queryset=ItemEntree.objects.all(), widget=forms.Select(attrs={'onChange':'javascript:if(this.value == 1){alert("Sandwich")};'}), label="Choose your Entree:")
+    itementreeid = forms.ModelChoiceField(queryset=ItemEntree.objects.all(), widget=forms.Select(), label="Choose your Entree:")
     itemdrinkid = forms.ModelChoiceField(queryset=ItemDrink.objects.all(), label="Choose your Drink:")
     itemsideid = forms.ModelChoiceField(queryset=ItemSide.objects.all(), label="Choose your Side:")
     itemfruitid = forms.ModelChoiceField(queryset=ItemFruit.objects.all(), label="Choose your Fruit:")
