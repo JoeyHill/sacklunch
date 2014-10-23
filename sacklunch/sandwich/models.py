@@ -41,13 +41,23 @@ class swCheese(models.Model):
 	def __unicode__(self):
 		return self.description
 
+class Topping(models.Model):
+	toppingid = models.AutoField(db_column='ToppingID', primary_key=True)
+	description = models.CharField(db_column='Description', max_length=100)
+	class Meta:
+		managed=False
+		db_table='Topping'
+		verbose_name='Topping'
+	def __unicode__(self):
+		return self.description
+
 class Sandwich(models.Model):	
 	sandwichid = models.AutoField(db_column='SandwichID', primary_key=True) # Field name made lowercase.
 	orderid = models.IntegerField(db_column='OrderID', editable=False) # Field name made lowercase.
 	swbreadid = models.ForeignKey(swBread, db_column='swBreadID') # Field name made lowercase.
 	swmeatid = models.ForeignKey(swMeat,db_column='swMeatID') # Field name made lowercase.
 	swcheeseid = models.ForeignKey(swCheese, db_column='swCheeseID') # Field name made lowercase.
-	
+	toppings = models.ManyToManyField(Topping, through='SandwichTopping')
 	def description(self):
 		oid = 0
 		if self.orderid == None:
@@ -66,16 +76,6 @@ class Sandwich(models.Model):
 	def __unicode__(self):
 		
 		return self.description()
-
-class Topping(models.Model):
-	toppingid = models.AutoField(db_column='ToppingID', primary_key=True)
-	description = models.CharField(db_column='Description', max_length=100)
-	class Meta:
-		managed=False
-		db_table='Topping'
-		verbose_name='Topping'
-	def __unicode__(self):
-		return self.description
 
 class SandwichTopping(models.Model):
 	sandwichtoppingid = models.AutoField(db_column='SandwichToppingID', primary_key=True)

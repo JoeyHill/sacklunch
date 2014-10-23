@@ -6,13 +6,21 @@
 
 <!-- Begin FirstForm content -->
 {% block content %}
-<p>Using this page you'll register your MyTropAccount credentials with the SackLunch app.</p>
 <form action="{{action}}" method="post">
 {% csrf_token %}
-<p>{{form.username.label}}:{{form.username}}</p>
-{{form.username.errors}}
-<p>{{form.password.label}}:{{form.password}}</p>
-{{form.password.errors}}
+{{form.owner}}
+<div>
+<table align='center'>
+{% for field in form %}
+    {% if field.label != "Owner" %}
+    	{% if field.label != "Orderid" %}
+    
+        <tr><td style="text-align: left;">{{field.label}}</td><td style="text-align:right;">{{ field }}</td></tr>
+    	{% endif %}
+    {% endif %}
+{% endfor %}
+</table>
+</div>
 <input type="submit" value="Submit">
 {% endblock %}
 <!-- End FirstForm content -->

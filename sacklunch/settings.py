@@ -29,6 +29,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Templates
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'sacklunch/templates')]
 
+ACCOUNT_HOME = '/order/list/'
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

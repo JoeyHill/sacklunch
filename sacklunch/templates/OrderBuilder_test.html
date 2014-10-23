@@ -6,13 +6,10 @@
 
 <!-- Begin FirstForm content -->
 {% block content %}
-<p>Using this page you'll register your MyTropAccount credentials with the SackLunch app.</p>
 <form action="{{action}}" method="post">
 {% csrf_token %}
-<p>{{form.username.label}}:{{form.username}}</p>
-{{form.username.errors}}
-<p>{{form.password.label}}:{{form.password}}</p>
-{{form.password.errors}}
-<input type="submit" value="Submit">
+{{formset.management_form}}
+<p>{{order_formset}}</p>
+<p>{{sandwich_formset}}</p>
 {% endblock %}
 <!-- End FirstForm content -->

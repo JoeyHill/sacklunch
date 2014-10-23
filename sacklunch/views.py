@@ -8,7 +8,7 @@ from sacklunch.authUtils import LoggedInMixin
 from django.shortcuts import redirect
 import sacklunch
 from sacklunch.entry.models import Entry
-
+from django.conf import settings
 import urllib
 from django.core.exceptions import ValidationError
 
@@ -50,6 +50,7 @@ from django import forms
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth import login
 import datetime
+import hashlib
 
 class UserForm(forms.ModelForm):
 	def clean_password(self):
@@ -67,11 +68,10 @@ class UserForm(forms.ModelForm):
 			else:
 				data = user.password
 		else:
+			#Check SRAPI and verify MD5 
 			data = user.password
 			user.save()
 		return data
-
-
 		#if user_exists(uname):
 			#response = urllib.urlopen('http://tropicanagardens.com/it/test.html')
 			#result = response.read()
@@ -93,7 +93,7 @@ from django.contrib.auth import authenticate, login, logout
 class AddUser(CreateView):
 	template_name = "auth/user_form.html"
 	form_class = UserForm
-	success_url = '/order/list/'
+	success_url = settings.ACCOUNT_HOME
 	#Form Valid Override	
 	#Auto Login for Successful Registration
 	def get_success_url(self):
@@ -102,7 +102,7 @@ class AddUser(CreateView):
 		if user is not None:
 			if user.is_active:
 				login(request, user)
-				redirect('/order/list/')
+				redirect(settings.ACCOUNT_HOME)
 		return super(AddUser, self).get_success_url()
 	#prevent save if user exists, try login
 	def post(self, request, *args, **kwargs):
@@ -113,7 +113,9 @@ class AddUser(CreateView):
 			if user is not None:
 				if user.is_active:
 					login(request,user)
-					return HttpResponseRedirect('/order/list/')
+					return HttpResponseRedirect(settings.ACCOUNT_HOME)
+			#check SRAPI to verify existence before creating?
+			
 		return super(AddUser, self).post(self, request, *args, **kwargs)
 
 

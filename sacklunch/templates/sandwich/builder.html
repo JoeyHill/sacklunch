@@ -1,0 +1,31 @@
+<!-- Begin view info -->
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %} Tropicana Sacklunch - Home {% endblock %}
+<!-- End view info -->
+
+<!-- Begin FirstForm content -->
+{% block content %}
+<rel type='text/css'>
+<form class="form-horizontal form-inline" method="post" >
+  {% csrf_token %}
+  {{ form.as_p }}
+  {{ formset.management_form }}
+  <div class="books">
+  {% for book_form in formset %}
+    <div id="book-{{ forloop.counter0 }}">
+      {% for field in book_form %}
+      	{% ifequal field.label "Sandwich Topping" %}
+      	{{field.label}}:<br />
+      	{% endifequal %}
+      	{{field}}
+      {% endfor %}
+    </div>
+  {% endfor %}
+ </div>
+ <div class="form-actions">
+   <button type="submit" class="btn btn-primary">Add My Sandwich</button>
+ </div>
+</form>
+{% endblock %}
+<!-- End FirstForm content -->

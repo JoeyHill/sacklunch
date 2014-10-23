@@ -14,7 +14,7 @@ from django.contrib.auth.models import User
 class Order(models.Model):
 	readonly_fields= ('duedate')
 	orderid = models.AutoField(db_column='OrderID', primary_key=True) # Field name made lowercase.
-	entryid = models.ForeignKey(Entry, db_column='EntryID', blank=True, null=True, default=776) # Field name made lowercase.
+	#entryid = models.ForeignKey(Entry, db_column='EntryID', blank=True, null=True, default=776) # Field name made lowercase.
 	authenticated = models.BooleanField(db_column='Authenticated', default=False) # Field name made lowercase.
 	processed = models.BooleanField(db_column='Processed', default=False) # Field name made lowercase.
 	processedbyid = models.IntegerField(db_column='ProcessedByID', default=0, blank=True, null=True) # Field name made lowercase.
